@@ -1,0 +1,16 @@
+class Solution {
+public:
+        int result = 0;
+    int depthfirstsearch(TreeNode *root) {
+		
+        int left = (root->left ? depthfirstsearch(root->left) : 0), right = (root->right ? depthfirstsearch(root->right) : 0);
+      
+		result += abs(left - right);
+		
+        return left + right + root->val;
+    }
+    int findTilt(TreeNode* root) {
+        if (root) depthfirstsearch(root);
+        return result;
+    }
+};
