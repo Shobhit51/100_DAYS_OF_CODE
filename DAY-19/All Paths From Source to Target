@@ -1,0 +1,21 @@
+class Solution {
+    void dfs(vector<vector<int>>&adj,int node,vector<int>&path,vector<vector<int>>&ans)
+    {
+        path.push_back(node); // When we get a node we push it into our path vector.
+
+        if(node==adj.size()-1) // If the value of our node is equal to destination node (0-->n-1) 
+                                
+        ans.push_back(path);
+        for(auto i:adj[node]) 
+        {
+            dfs(adj,i,path,ans);}
+        path.pop_back(); 
+    }
+public:
+    vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
+        vector<vector<int>>ans; // To store all the paths
+        vector<int>path; // Temporary vector to store a path 
+        dfs(graph,0,path,ans); 
+        return ans;
+    }
+};
