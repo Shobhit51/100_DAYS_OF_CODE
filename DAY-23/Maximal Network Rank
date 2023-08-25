@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+        // build adjacency list
+        vector<unordered_set<int>> adj(n);
+        for(auto road: roads) {
+            adj[road[0]].insert(road[1]);
+            adj[road[1]].insert(road[0]);
+        }
+
+        // find the maximum pair of connections
+        int maxi = INT_MIN;
+        for(int i = 0; i < n - 1; i++) {
+            for(int j = i + 1; j < n; j++) {
+                int total = adj[i].size() + adj[j].size();
+
+                // if they are connected subtract 1 from total
+                if(adj[i].count(j)) total--;
+
+                maxi = max(maxi,total);
+            }
+        }
+
+        return maxi;
+    }
+};
