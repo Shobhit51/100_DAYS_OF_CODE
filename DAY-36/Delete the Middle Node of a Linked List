@@ -1,0 +1,29 @@
+
+    ListNode* deleteMiddle(ListNode* head) {
+           if (head == NULL) {
+          return NULL;
+       }
+       if (head->next == NULL) {
+          delete head;
+          return NULL;
+       }
+        
+          ListNode* slow=head;
+          ListNode* curr=head;
+          ListNode* fast=head;
+        
+        while(fast && fast->next){
+            
+            if(slow!=head){
+                curr=curr->next;
+            }
+            
+              fast=fast->next->next;
+              slow=slow->next;
+       }
+        
+        curr->next=slow->next;
+         delete slow;
+        return head;
+    }
+};
