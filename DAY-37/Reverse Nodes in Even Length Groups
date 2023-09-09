@@ -1,0 +1,52 @@
+class Solution {
+public:
+    // Reverse function
+    ListNode* reverse(ListNode* head) {
+        if(head == NULL)
+            return head;
+        
+        ListNode* prev = NULL, *forward = NULL;
+        while(head != NULL) {
+            forward = head->next;
+            head->next = prev;
+            prev = head;
+            head = forward;
+        }
+        return prev;
+    }
+    
+    ListNode* reverseEvenLengthGroups(ListNode* head) {
+        ListNode* dummy = new ListNode(), *prev = dummy;
+        dummy->next = head;
+        
+        // Step 1 - determine the length of groups
+        for(int len = 1; len < 1e5 && head; len++) {
+            ListNode* tail = head, *nextHead;
+            
+            // Determining the length of the current group
+            // Its maximum length can be equal to len
+            int j = 1;
+            while(j < len && tail != NULL && tail->next != NULL) {
+                tail = tail->next;
+                j++;
+            }
+            
+            // Head of the next group
+            nextHead = tail->next;
+            if((j % 2) == 0) {
+                // If group size is even then reverse the group and set prev and head
+                tail->next = NULL;
+                prev->next = reverse(head);
+                prev = head;
+                head->next = nextHead;
+                head = nextHead;
+            }
+            else {     // If group is odd sized then simply go to the next group
+                prev = tail;
+                head = nextHead;
+            }
+        }
+
+        return dummy->next;
+    }
+};
