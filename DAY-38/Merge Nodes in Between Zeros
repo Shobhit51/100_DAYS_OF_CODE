@@ -1,0 +1,28 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution {
+    func mergeNodes(_ head: ListNode?) -> ListNode? {
+        let newHead = ListNode(-1)
+        var temp = head?.next
+
+
+        while temp?.next != nil {
+            if temp!.next!.val == 0 {
+                temp?.next = temp?.next?.next
+                temp = temp?.next
+            } else {
+                temp?.val += temp!.next!.val
+               temp?.next = temp?.next?.next
+            }
+        }
+        return  head?.next
+    }
+}
