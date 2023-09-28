@@ -1,0 +1,23 @@
+bool ispar(string x)
+{
+    stack<char> s;
+    for (char c : x) {
+        if (c == '[' | c == '{' | c == '(') {
+            s.push(c);
+        }
+        else {
+            // size is 0 but here we have ending bracket that's not balanced
+            if (s.size() == 0) {
+                return false;
+            }
+            else if (c == ']' && s.top() == '[') s.pop();
+            else if (c == '}' && s.top() == '{') s.pop();
+            else if (c == ')' && s.top() == '(') s.pop();
+            else {  // ending bracket is not matching with starting bracket.
+                return false;
+            }
+        }
+    }
+    // if still there r some starting bracket left then it is not balanced
+    return (s.size()) ? false : true;
+}
