@@ -1,0 +1,6 @@
+int middle(int A, int B, int C) {
+    if (A < B) {
+        return (A > C) ? A : min(C, B);
+    }
+    return (A < C) ? A : max(B, C);
+}
