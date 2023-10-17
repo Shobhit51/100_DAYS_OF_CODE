@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        if(c<0){
+            return false;
+        }
+        long  int l=0;
+        long  int  r=sqrt(c);
+        
+        while(l<=r){
+          long int p=l*l+r*r;
+            if(p<c){
+                l++;
+            }
+            else if(p>c){
+                r--;
+            }
+            else{
+                return true;
+            }
+        }
+        return false;
+        
+    }
+};
