@@ -1,0 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+     void dfs(TreeNode* t1, TreeNode* t2) {
+        // we act only if both nodes are present, otherwise do nothing (ie: return)
+        if (t1 && t2) {
+            // if we have both and t1 was not taken by t2, we sum
+            if (t1 != t2) t1->val += t2->val;
+            // if t1 misses branches, we attach the ones from t2
+            if (!t1->left) t1->left = t2->left;
+            if (!t1->right) t1->right = t2->right;
+            // recursively we go!
+            dfs(t1->left, t2->left);
+            dfs(t1->right, t2->right);
+        }
+    }
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+        // edge case: empty t1
+        if (!root1) return root2;
+        dfs(root1, root2);
+        return root1;
+    }
+};
