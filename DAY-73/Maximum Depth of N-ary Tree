@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int maxDepth(Node* root) {
+        if(!root) return 0;
+        
+        int max=0;
+        for(auto child: root->children){
+            int height = maxDepth(child);
+            if(height>max) max=height;
+        }
+        return 1+max;
+    }
+};
