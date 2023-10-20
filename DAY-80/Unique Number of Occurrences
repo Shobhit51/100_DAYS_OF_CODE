@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_map <int, int> numbers;
+        unordered_set <int> occurrences;
+
+        int size = arr.size();
+
+        for (int i = 0; i < size; i++) {
+            numbers[arr[i]]++;
+        }
+
+        for (auto it : numbers) {
+            if (occurrences.find(it.second) != occurrences.end())
+                return false;
+            occurrences.insert(it.second);    
+        }
+
+        return true;
+    }
+};
