@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxValue(vector<vector<int>>& events, int k) {
+        int n = events.size();
+        // sort by start time
+        sort(events.begin(), events.end());
+        // dp[i][j] means the max value we could get 
+        // when we are at event i with k events left to join 
+        vector<vector<int>> dp(n, vector<int>(k + 1, -1));
+        function<int(int,int,int)> dfs = [&](int idx, int k, int end) {
+            // reached all events or attended all k events
+            if (idx == n || k == 0) return 0;
+            // current start time <= previous end time
+            // cannot attend -> move to the next one
+            if (events[idx][0] <= end) return dfs(idx + 1, k, end);
+            // calculated before - return it immediately
+            if (dp[idx][k] != -1) return dp[idx][k];
+            // so we only have two choices left, we either
+            return dp[idx][k] = max(
+                // choice 1: attend this event 
+                // and search for the next events starting from this end time
+                events[idx][2] + dfs(idx + 1, k - 1, events[idx][1]),
+                // choice 2: skip this event - search for the next one
+                dfs(idx + 1, k, end)
+            );
+        };
+        return dfs(0, k, 0);
+    }
+};
