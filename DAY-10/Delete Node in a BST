@@ -5,7 +5,8 @@ private:
             return root->right;
         }
         if(root->right==NULL){
-            return root->left;
+            return root->left
+;
         }
         
             TreeNode* child=root->right;
